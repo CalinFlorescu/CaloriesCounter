@@ -1,4 +1,4 @@
-const User = require("../../models/users");
+const User = require("../../models/User");
 const mongoose = require("mongoose");
 
 const getUserById = (req, res, next) => {

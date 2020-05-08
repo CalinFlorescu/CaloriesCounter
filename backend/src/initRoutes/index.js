@@ -1,26 +1,8 @@
-const createUser = require("../handlers/userHandlers/createUserHandler");
-const {
-  getAllUsers,
-  getUserById,
-} = require("../handlers/userHandlers/getUserHandler");
-const {
-  deleteUserById,
-  deleteUsers,
-} = require("../handlers/userHandlers/deleteUserHandler");
-const updateUser = require("../handlers/userHandlers/updateUserHandler");
-
-const createUserAdmin = require("../handlers/userAdminHandlers/createUserAdminHandler");
-const {
-  deleteUserAdminById,
-  deleteUserAdmins,
-} = require("../handlers/userAdminHandlers/deleteUserAdminHandler");
-const {
-  getAllUserAdmins,
-  getUserAdminById,
-} = require("../handlers/userAdminHandlers/getUserAdminHandler");
-const updateUserAdmin = require("../handlers/userAdminHandlers/updateUserAdminHandler");
-
-const createAdmin = require("../handlers/adminHandlers/createAdminHandler");
+const createAdmin = require("../controllers/adminHandlers/createAdminHandler");
+const UserHandlers = require("../controllers/userHandlers");
+const UserAdminHandlers = require("../controllers/userAdminHandlers");
+const MealHandlers = require("../controllers/mealHandlers");
+const ProductHandlers = require("../controllers/productHandlers.js");
 
 module.exports = (app) => {
   app.get("/", (req, res, next) => {
@@ -28,21 +10,39 @@ module.exports = (app) => {
   });
 
   // User API's
-  app.post("/user", createUser);
-  app.get("/users", getAllUsers);
-  app.get("/user/:uid", getUserById);
-  app.delete("/users", deleteUsers);
-  app.delete("/user/:uid", deleteUserById);
-  app.put("/user/:uid", updateUser);
+  app.post("/user", UserHandlers.createUser);
+  app.get("/users", UserHandlers.getAllUsers);
+  app.get("/user/:uid", UserHandlers.getUserById);
+  app.delete("/users", UserHandlers.deleteUsers);
+  app.delete("/user/:uid", UserHandlers.deleteUserById);
+  app.put("/user/:uid", UserHandlers.updateUser);
 
   // User-Admin Api's
-  app.post("/user-admin", createUserAdmin);
-  app.get("/user-admins", getAllUserAdmins);
-  app.get("/user-admin/:uid", getUserAdminById);
-  app.delete("/user-admins", deleteUserAdmins);
-  app.delete("/user-admin/:uid", deleteUserAdminById);
-  app.put("/user-admin/:uid", updateUserAdmin);
+  app.post("/user-admin", UserAdminHandlers.createUserAdmin);
+  app.get("/user-admins", UserAdminHandlers.getAllUserAdmins);
+  app.get("/user-admin/:uid", UserAdminHandlers.getUserAdminById);
+  app.delete("/user-admins", UserAdminHandlers.deleteUserAdmins);
+  app.delete("/user-admin/:uid", UserAdminHandlers.deleteUserAdminById);
+  app.put("/user-admin/:uid", UserAdminHandlers.updateUserAdmin);
 
   // Admin Api's
   app.post("/admin", createAdmin);
+
+  // Meal Api's
+  app.post("/meal", MealHandlers.createMeal);
+  app.get("/meals", MealHandlers.getAllMeals);
+  app.get("/meals/:uid", MealHandlers.getMealsByUserId);
+  app.delete("/meal/:mid", MealHandlers.deleteMealById);
+  app.delete("/meals", MealHandlers.deleteAllMeals);
+  app.delete("/meals/:uid", MealHandlers.deleteMealsByUserId);
+  app.put("/meal/:mid", MealHandlers.updateMealById);
+
+  // Product Api's
+  app.post("/product", ProductHandlers.createProduct);
+  app.get("/products", ProductHandlers.getAllProducts);
+  app.get("/products/:mid", ProductHandlers.getProductsByMealId);
+  app.delete("/product/:pid", ProductHandlers.deleteProductById);
+  app.delete("/products", ProductHandlers.deleteAllProducts);
+  app.delete("/products/:mid", ProductHandlers.deleteProductsByMealId);
+  app.put("/product/:pid", ProductHandlers.updateProduct);
 };

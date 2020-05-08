@@ -1,33 +1,34 @@
-const Admin = require("../../models/admins");
+const User = require("../../models/User");
 const mongoose = require("mongoose");
 
 module.exports = (req, res, next) => {
-  const { password, email } = req.body;
+  const { name, password, email } = req.body;
 
-  Admin.findOne({ email }, (err, admin) => {
+  User.findOne({ email }, (err, myUser) => {
     if (err) {
       console.log("Error at verifying email ", err);
       return res.status(500).send("Error at verifying email");
     }
 
-    if (admin) {
+    if (myUser) {
       return res.status(500).send("Email already in use!");
     } else {
-      const newAdmin = new Admin({
+      const user = new User({
         _id: new mongoose.Types.ObjectId(),
+        name,
         password,
         email,
       });
 
-      newAdmin
+      user
         .save()
         .then((result) => {
           console.log(result);
-          return res.status(200).send("Admin created.");
+          return res.status(200).send("User created.");
         })
         .catch((err) => {
-          console.log("Error at creating admin - ", err);
-          return res.status(500).send("Error at creating admin");
+          console.log("Error at creating user - ", err);
+          return res.status(500).send("Error at creating user");
         });
     }
   });

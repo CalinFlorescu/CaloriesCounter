@@ -1,4 +1,4 @@
-const UserAdmin = require("../../models/userAdmins");
+const UserAdmin = require("../../models/UserAdmin");
 const mongoose = require("mongoose");
 
 const deleteUserAdminById = (req, res, next) => {
