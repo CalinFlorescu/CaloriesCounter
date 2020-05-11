@@ -1,6 +1,8 @@
 const UserAdmin = require("../../models/UserAdmin");
 const mongoose = require("mongoose");
 
+const { encryptingPassword } = require("../../utils/securePassword");
+
 module.exports = (req, res, next) => {
   const { password, email } = req.body;
 
@@ -13,9 +15,11 @@ module.exports = (req, res, next) => {
     if (userAdmin) {
       return res.status(500).send("Email already in use!");
     } else {
+      const { hashedPassword, salt } = encryptingPassword(password);
+
       const userAdmin = new UserAdmin({
         _id: new mongoose.Types.ObjectId(),
-        password,
+        password: hashedPassword,
         email,
       });
 

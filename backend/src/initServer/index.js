@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 
 // const swaggerUi = require("swagger-ui-express");
 
-// const swaggerDocument = require("../../swaggerDocument.json");
+// const swaggerDocument = require("../../swaggerDocument.ts");
 
 module.exports = () => {
   dotenv.config();
@@ -24,7 +24,7 @@ module.exports = () => {
 
   app.use(cors());
 
-  // app.use("/api-docs", swaggerUi.server, swaggerUi.setup(swaggerDocument));
+  // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.listen(port, () => {
     console.log(`Listening on port ${port}`);

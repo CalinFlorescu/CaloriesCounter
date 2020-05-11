@@ -1,6 +1,8 @@
 const User = require("../../models/User");
 const mongoose = require("mongoose");
 
+const { encryptingPassword } = require("../../utils/securePassword");
+
 module.exports = (req, res, next) => {
   const { name, password, email } = req.body;
 
@@ -13,10 +15,12 @@ module.exports = (req, res, next) => {
     if (myUser) {
       return res.status(500).send("Email already in use!");
     } else {
+      const { hashedPassword, salt } = encryptingPassword(password);
+
       const user = new User({
         _id: new mongoose.Types.ObjectId(),
         name,
-        password,
+        password: hashedPassword,
         email,
       });
 
