@@ -2,14 +2,18 @@ const createAdmin = require("../controllers/adminHandlers/createAdminHandler");
 const UserHandlers = require("../controllers/userHandlers");
 const UserAdminHandlers = require("../controllers/userAdminHandlers");
 const MealHandlers = require("../controllers/mealHandlers");
-const ProductHandlers = require("../controllers/productHandlers.js");
+const ProductHandlers = require("../controllers/productHandlers/index.js");
 
-const login = require("../controllers/LoginHandler");
+const login = require("../controllers/loginHandler");
+const { verifyToken } = require("../utils/jwtLogic");
 
 module.exports = (app) => {
   app.get("/v1/api/", (req, res, next) => {
     res.send("All good");
   });
+
+  // Authorization
+  app.use("/", verifyToken);
 
   // User API's
   app.post("/v1/api/user", UserHandlers.createUser);

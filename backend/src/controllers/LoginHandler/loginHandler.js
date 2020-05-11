@@ -3,12 +3,11 @@ const User = require("../../models/User");
 const UserAdmin = require("../../models/UserAdmin");
 
 const { decryptingPassword } = require("../../utils/securePassword");
+const { createToken } = require("../../utils/jwtLogic");
 
 module.exports = (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password: userPassword } = req.body;
   const { role } = req.headers;
-
-  console.log(role);
 
   switch (role) {
     case "0": {
@@ -19,10 +18,17 @@ module.exports = (req, res, next) => {
         }
 
         try {
-          const decryptedPassword = decryptingPassword(admin[0].password);
+          const { password, _id } = admin[0];
 
-          if (password === decryptedPassword) {
-            return res.status(200).send("Login ok");
+          const decryptedPassword = decryptingPassword(password);
+
+          if (userPassword === decryptedPassword) {
+            const token = createToken(_id, process.env.JWT_ADMIN_SECRET);
+
+            return res.status(200).send({
+              token: `Bearer ${token}`,
+              userId: _id,
+            });
           }
 
           return res.status(500).send("Error at login for admin");
@@ -31,6 +37,7 @@ module.exports = (req, res, next) => {
           return res.status(500).send("Error at login for admin");
         }
       });
+      return;
     }
     case "1": {
       UserAdmin.find({ email }, (err, userAdmin) => {
@@ -40,10 +47,17 @@ module.exports = (req, res, next) => {
         }
 
         try {
-          const decryptedPassword = decryptingPassword(userAdmin[0].password);
+          const { password, _id } = userAdmin[0];
 
-          if (password === decryptedPassword) {
-            return res.status(200).send("Login ok");
+          const decryptedPassword = decryptingPassword(password);
+
+          if (userPassword === decryptedPassword) {
+            const token = createToken(_id, process.env.JWT_USERADMIN_SECRET);
+
+            return res.status(200).send({
+              token: `Bearer ${token}`,
+              userId: _id,
+            });
           }
 
           return res.status(500).send("Error at login for user-admin");
@@ -52,6 +66,7 @@ module.exports = (req, res, next) => {
           return res.status(500).send("Error at login for user-admin");
         }
       });
+      return;
     }
     case "2": {
       User.find({ email }, (err, user) => {
@@ -61,10 +76,17 @@ module.exports = (req, res, next) => {
         }
 
         try {
-          const decryptedPassword = decryptingPassword(user[0].password);
+          const { password, _id } = user[0];
 
-          if (password === decryptedPassword) {
-            return res.status(200).send("Login ok");
+          const decryptedPassword = decryptingPassword(password);
+
+          if (userPassword === decryptedPassword) {
+            const token = createToken(_id, process.env.JWT_USER_SECRET);
+
+            return res.status(200).send({
+              token: `Bearer ${token}`,
+              userId: _id,
+            });
           }
 
           return res.status(500).send("Error at login for user");
@@ -73,6 +95,7 @@ module.exports = (req, res, next) => {
           return res.status(500).send("Error at login for user");
         }
       });
+      return;
     }
   }
 };
