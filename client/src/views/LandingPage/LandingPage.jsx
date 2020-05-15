@@ -14,12 +14,18 @@ import {
 
 import "./LandingPage.css";
 
-export default function () {
+export default function ({ children }) {
   const [collapse, setCollapse] = useState(false);
   const [isWideEnough, setIsWideEnough] = useState(false);
 
   const onClick = () => {
     setCollapse(!collapse);
+  };
+
+  const displayChildren = () => {
+    const ChildComponent = children;
+
+    return <ChildComponent />;
   };
 
   return (
@@ -37,10 +43,10 @@ export default function () {
                   <MDBNavLink to="/">Home</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
-                  <MDBNavLink to="#">Register</MDBNavLink>
+                  <MDBNavLink to="/register">Register</MDBNavLink>
                 </MDBNavItem>
                 <MDBNavItem>
-                  <MDBNavLink to="#">Login</MDBNavLink>
+                  <MDBNavLink to="/login">Login</MDBNavLink>
                 </MDBNavItem>
               </MDBNavbarNav>
             </MDBCollapse>
@@ -52,10 +58,7 @@ export default function () {
             overlay="black-strong"
             className="flex-center flex-column text-white text-center"
           >
-            <h2>Calories Counter</h2>
-            <h5>The tool you need to track your meals</h5>
-            <br />
-            <p>Project created by Calin Florescu </p>
+            {displayChildren()}
           </MDBMask>
         </MDBView>
       </header>
