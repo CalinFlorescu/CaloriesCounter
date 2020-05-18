@@ -1,0 +1,20 @@
+.h-10 {
+  height: 10vh;
+}
+
+.h-85 {
+  height: 85vh;
+}
+
+.align-search {
+  margin-left: 12.5% !important;
+}
+
+.add-button-positioning {
+  right: 5%;
+  bottom: 6%;
+}
+
+.shape {
+  clip-path: circle(50% at 50% 50%);
+}

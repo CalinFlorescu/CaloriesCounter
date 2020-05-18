@@ -20,7 +20,10 @@ export default function Login() {
     status: false,
     message: undefined,
   });
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState({
+    status: false,
+    path: undefined,
+  });
 
   useEffect(() => {
     const isNewRegister = sessionStorage.getItem("register");
@@ -63,7 +66,7 @@ export default function Login() {
           console.error(response);
           setPopUp({
             status: true,
-            message: response.text(),
+            message: `Bad email or password`,
           });
           return;
         }
@@ -73,15 +76,31 @@ export default function Login() {
 
         sessionStorage.setItem("token", token);
         sessionStorage.setItem("userId", userId);
+        sessionStorage.setItem("role", role);
 
-        setRedirect(true);
+        if (role === "0") {
+          setRedirect({
+            status: true,
+            path: "/admin",
+          });
+        } else if (role === "1") {
+          setRedirect({
+            status: true,
+            path: "/user-admin",
+          });
+        } else if (role === "2") {
+          setRedirect({
+            status: true,
+            path: "/user",
+          });
+        }
       })
       .catch((err) => console.error(err));
   };
 
   return (
     <>
-      {redirect ? <Redirect to="/board" /> : null}
+      {redirect.status ? <Redirect to={redirect.path} /> : null}
       <MDBContainer>
         <MDBRow>
           <MDBCol md="4"></MDBCol>
@@ -136,14 +155,24 @@ export default function Login() {
           <MDBCol md="4"></MDBCol>
         </MDBRow>
       </MDBContainer>
-      <MDBNotification
-        show={popUp.statis}
-        fade
-        iconClassName="text-primary"
-        title="Bootstrap"
-        message={popUp.message}
-        text="11 mins ago"
-      />
+      {popUp.status ? (
+        <MDBNotification
+          show
+          fade
+          iconClassName="dark"
+          icon="bell"
+          title="CC"
+          autohide={3000}
+          message={popUp.message}
+          style={{
+            position: "fixed",
+            bottom: "10px",
+            left: "10px",
+            zIndex: 9999,
+            background: "rgba(0,0,0, 0.4)",
+          }}
+        />
+      ) : null}
     </>
   );
 }
