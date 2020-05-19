@@ -11,7 +11,10 @@ import {
 } from "mdbreact";
 
 import "./UserAdmin.css";
+import "./scrollbar.css";
+
 import NavBar from "../../components/NavBar";
+import UserCard from "../../components/UserCard";
 
 export default function UserAdmin() {
   return (
@@ -46,6 +49,7 @@ export default function UserAdmin() {
                     placeholder="Search"
                     aria-label="Search"
                   />
+                  -
                   <MDBBtn
                     outline
                     color="white"
@@ -57,11 +61,23 @@ export default function UserAdmin() {
                     Search
                   </MDBBtn>
                 </div>
+                <div
+                  className="scrollbar d-flex justify-content-start flex-wrap overflow-auto"
+                  style={{ maxHeight: "75vh" }}
+                >
+                  <UserCard />
+                  {/* <UserCard />
+                  <UserCard />
+                  <UserCard />
+                  <UserCard />
+                  <UserCard />
+                  <UserCard /> */}
+                </div>
               </MDBCol>
               <MDBCol sm="1"></MDBCol>
             </MDBRow>
             <MDBView
-              className="position-absolute add-button-positioning shape"
+              className="position-absolute add-button-positioning shape z-index-9"
               hover
             >
               <MDBAnimation type="rotateIn" duration="2s">
