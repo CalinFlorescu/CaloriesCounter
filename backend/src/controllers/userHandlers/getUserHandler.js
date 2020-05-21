@@ -17,7 +17,7 @@ const getUserById = (req, res, next) => {
 };
 
 const getAllUsers = (req, res, next) => {
-  User.find({}, (err, users) => {
+  User.find({}, "-password", (err, users) => {
     if (err) {
       console.log("Error at retrieving users ", err);
       return res.status(500).send("Error at retrieving users");
