@@ -34,7 +34,7 @@ export default function EditUserModal({ open, toggle, user }) {
     };
 
     Object.keys(userData).forEach((key) => {
-      if (userData[key] && userData[key] != user[key]) {
+      if (userData[key] && userData[key] !== user[key]) {
         updatedObject[key] = userData[key];
       } else {
         updatedObject[key] = user[key];

@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import {
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBBtn,
+  MDBNotification,
+} from "mdbreact";
 import { Redirect } from "react-router-dom";
 import "./Register.css";
 
@@ -114,6 +120,25 @@ export default function Register() {
           <MDBCol md="4"></MDBCol>
         </MDBRow>
       </MDBContainer>
+
+      {error.status ? (
+        <MDBNotification
+          show
+          fade
+          iconClassName="dark"
+          icon="bell"
+          title="CC"
+          autohide={3000}
+          message={error.message}
+          style={{
+            position: "fixed",
+            bottom: "10px",
+            left: "10px",
+            zIndex: 9999,
+            background: "rgba(0,0,0, 0.4)",
+          }}
+        />
+      ) : null}
     </>
   );
 }

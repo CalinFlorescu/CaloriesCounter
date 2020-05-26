@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { MDBView, MDBMask } from "mdbreact";
 
 import "./LandingPage.css";
