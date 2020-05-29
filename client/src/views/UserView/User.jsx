@@ -11,6 +11,9 @@ import {
 } from "mdbreact";
 
 import NavBar from "../../components/NavBar";
+import MealCard from "../../components/MealCard";
+import MealsContainer from "../../components/MealsContainer";
+
 import getCurrentDate from "../../utils/getCurrentDate";
 import setProgressBarColor from "../../utils/setProgressBarColor";
 
@@ -89,10 +92,7 @@ export default function User() {
                     md="12"
                     className="d-flex flex-column recent-meals-box mt-1 overflow-auto"
                   >
-                    <div className="w-100 h-25 test-div">asd</div>
-                    <div className="w-100 h-25 test-div">asd</div>
-                    <div className="w-100 h-25 test-div">asd</div>
-                    <div className="w-100 h-25 test-div">asd</div>
+                    <MealCard />
                   </MDBCol>
                 </MDBRow>
               </MDBCol>
@@ -100,16 +100,15 @@ export default function User() {
                 <MDBRow fluid className="h-100">
                   <MDBCol md="4">
                     <h1 className="text-center">Breakfast</h1>
-                    <div className="w-100 h-25 test-div">asd</div>
-                    <div className="w-100 h-25 test-div">asd</div>
+                    <MealsContainer />
                   </MDBCol>
                   <MDBCol md="4">
                     <h1 className="text-center">Lunch</h1>
-                    <div className="w-100 h-25 test-div">asd</div>
+                    <MealsContainer />
                   </MDBCol>
                   <MDBCol md="4">
                     <h1 className="text-center">Dinner</h1>
-                    <div className="w-100 h-25 test-div">asd</div>
+                    <MealsContainer />
                   </MDBCol>
                 </MDBRow>
               </MDBCol>

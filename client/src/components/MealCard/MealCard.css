@@ -1,0 +1,33 @@
+.meal-card-box {
+  position: relative;
+  /* height: 100%; */
+  background: rgb(39, 37, 37);
+}
+
+.meal-card-box:before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: rgb(109, 107, 107);
+  z-index: -1;
+}
+
+.meal-card-box:after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: rgb(109, 107, 107);
+  z-index: -1;
+  filter: blur(10px);
+}
+
+.meal-card-box:before,
+.meal-card-box:before {
+  background: #14ec1f;
+}

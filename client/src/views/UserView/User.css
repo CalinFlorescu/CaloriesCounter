@@ -7,7 +7,7 @@
 }
 
 .user-view {
-  z-index: -3;
+  z-index: 0;
 }
 
 .user-mask {
